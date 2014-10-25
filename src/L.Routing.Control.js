@@ -208,6 +208,15 @@
 			}
 		},
 
+		getDownloadURL: function(format) {
+			if (!this._plan.isReady()) {
+				return '';
+			}
+			return this._router.buildRouteUrl(this._plan.getWaypoints(), {
+				fileformat: format
+			});
+		},
+
 		route: function(options) {
 			var ts = new Date().getTime(),
 				wps;

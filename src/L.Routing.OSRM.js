@@ -36,7 +36,7 @@
 		},
 
 		route: function(waypoints, callback, context, options) {
-			var url = this._buildRouteUrl(waypoints, options),
+			var url = this.buildRouteUrl(waypoints, options),
 				timedOut = false,
 				timer = setTimeout(function() {
 					timedOut = true;
@@ -119,7 +119,7 @@
 			return wps;
 		},
 
-		_buildRouteUrl: function(waypoints, options) {
+		buildRouteUrl: function(waypoints, options) {
 			var locs = [],
 			    computeInstructions,
 			    computeAlternative,
@@ -144,7 +144,8 @@
 				'alt=' + computeAlternative + '&' +
 				(options.z ? 'z=' + options.z + '&' : '') +
 				locs.join('&') +
-				(this._hints.checksum !== undefined ? '&checksum=' + this._hints.checksum : '');
+				(this._hints.checksum !== undefined ? '&checksum=' + this._hints.checksum : '') +
+				(options.fileformat ? '?output=' + options.fileformat : '');
 		},
 
 		_locationKey: function(location) {
