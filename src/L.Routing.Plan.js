@@ -33,6 +33,7 @@
 			],
 			draggableWaypoints: true,
 			addWaypoints: true,
+			addButtonClassName: '',
 			maxGeocoderTolerance: 200,
 			autocompleteOptions: {},
 			geocodersClassName: '',
@@ -156,7 +157,7 @@
 				this._geocoderElems.push(geocoderElem);
 			}
 
-			addWpBtn = L.DomUtil.create('button', '', container);
+			addWpBtn = L.DomUtil.create('button', this.options.addButtonClassName, container);
 			addWpBtn.setAttribute('type', 'button');
 			addWpBtn.innerHTML = '+';
 			if (this.options.addWaypoints) {
