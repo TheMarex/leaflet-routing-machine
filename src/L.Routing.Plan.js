@@ -1,17 +1,11 @@
 (function() {
 	'use strict';
 
-	var L = require('leaflet'),
-		Waypoint = L.Class.extend({
-			initialize: function(latLng, name, allowUTurn) {
-				this.latLng = latLng;
-				this.name = name;
-				this.allowUTurn = allowUTurn || false;
-			}
-		});
+	var L = require('leaflet');
 
 	L.Routing = L.Routing || {};
 	L.extend(L.Routing, require('./L.Routing.Autocomplete'));
+	L.extend(L.Routing, require('./L.Routing.Waypoint'));
 
 	function selectInputText(input) {
 		if (input.setSelectionRange) {
@@ -109,13 +103,13 @@
 			    wp;
 
 			for (i = 2; i < arguments.length; i++) {
-				args.push(arguments[i] && arguments[i].hasOwnProperty('latLng') ? arguments[i] : new Waypoint(arguments[i]));
+				args.push(arguments[i] && arguments[i].hasOwnProperty('latLng') ? arguments[i] : L.Routing.waypoint(arguments[i]));
 			}
 
 			[].splice.apply(this._waypoints, args);
 
 			while (this._waypoints.length < 2) {
-				wp = new Waypoint();
+				wp = L.Routing.waypoint();
 				this._waypoints.push(wp);
 				args.push(wp);
 			}
