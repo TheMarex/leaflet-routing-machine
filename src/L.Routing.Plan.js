@@ -3,9 +3,10 @@
 
 	var L = require('leaflet'),
 		Waypoint = L.Class.extend({
-			initialize: function(latLng, name) {
+			initialize: function(latLng, name, allowUTurn) {
 				this.latLng = latLng;
 				this.name = name;
+				this.allowUTurn = allowUTurn || false;
 			}
 		});
 

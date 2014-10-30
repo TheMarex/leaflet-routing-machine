@@ -134,6 +134,11 @@
 				if (hint) {
 					locs.push('hint=' + hint);
 				}
+
+				if (waypoints[i].allowUTurn)
+				{
+					locs.push('uturn=true');
+				}
 			}
 
 			computeAlternative = computeInstructions =
@@ -145,7 +150,8 @@
 				(options.z ? 'z=' + options.z + '&' : '') +
 				locs.join('&') +
 				(this._hints.checksum !== undefined ? '&checksum=' + this._hints.checksum : '') +
-				(options.fileformat ? '?output=' + options.fileformat : '');
+				(options.fileformat ? '?output=' + options.fileformat : '') +
+				(options.allowUTurns ? '?uturns=' + options.allowUTurns : '');
 		},
 
 		_locationKey: function(location) {
