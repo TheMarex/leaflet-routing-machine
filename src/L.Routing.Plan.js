@@ -54,6 +54,14 @@
 					closeButton: remove
 				};
 			},
+			createMarker: function(i, wp, n) {
+				var options = {
+				      draggable: true
+				    },
+				    marker = L.marker(wp.latLng, options);
+
+				return marker;
+			},
 			waypointNameFallback: function(latLng) {
 				var ns = latLng.lat < 0 ? 'S' : 'N',
 				    ew = latLng.lng < 0 ? 'W' : 'E',
@@ -293,8 +301,6 @@
 
 		_updateMarkers: function() {
 			var i,
-			    icon,
-			    popup,
 			    m;
 
 			if (!this._map) {
@@ -305,13 +311,8 @@
 
 			for (i = 0; i < this._waypoints.length; i++) {
 				if (this._waypoints[i].latLng) {
-					icon = (typeof(this.options.waypointIcon) === 'function') ?
-						this.options.waypointIcon(i, this._waypoints[i].name, this._waypoints.length) :
-						this.options.waypointIcon;
-					popup = (typeof(this.options.waypointPopup) === 'function') ?
-						this.options.waypointPopup(i, this._waypoints[i].name, this._waypoints.length) :
-						this.options.waypointPopup;
-					m = this._createMarker(icon, popup, i);
+					m = this.options.createMarker(i, this._waypoints[i], this._waypoints.length);
+					m.addTo(this._map);
 					if (this.options.draggableWaypoints) {
 						this._hookWaypointEvents(m, i);
 					}
@@ -322,22 +323,6 @@
 			}
 		},
 
-		_createMarker: function(icon, popup, i) {
-			var options = {
-				draggable: true
-			},
-				 marker;
-			if (icon) {
-				options.icon = icon;
-			}
-
-			marker = L.marker(this._waypoints[i].latLng, options).addTo(this._map);
-			if (popup) {
-				marker.bindPopup(popup);
-			}
-
-			return marker;
-		},
 
 		_fireChanged: function() {
 			this.fire('waypointschanged', {waypoints: this.getWaypoints()});
