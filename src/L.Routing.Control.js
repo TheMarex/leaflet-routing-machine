@@ -86,6 +86,10 @@
 			return this._plan;
 		},
 
+		getRouter: function() {
+			return this._router;
+		},
+
 		_routeSelected: function(e) {
 			var route = e.route,
 				fitMode = this.options.fitSelectedRoutes,
@@ -206,15 +210,6 @@
 			if (!err) {
 				this._updateLine(routes[0]);
 			}
-		},
-
-		getDownloadURL: function(format) {
-			if (!this._plan.isReady()) {
-				return '';
-			}
-			return this._router.buildRouteUrl(this._plan.getWaypoints(), {
-				fileformat: format
-			});
 		},
 
 		route: function(options) {
