@@ -160,7 +160,7 @@
 					elem,
 					j;
 
-			if (L.DomUtil.hasClass(selectedElem, 'leaflet-routing-alt-minimized')) {
+			if (L.DomUtil.hasClass(selectedElem, minimizedClassName)) {
 				for (j = 0; j < this._altElements.length; j++) {
 					elem = this._altElements[j];
 					isSelected = selectedElem === elem;
@@ -181,6 +181,21 @@
 
 						elem.scrollTop = 0;
 					}
+				}
+			}
+		},
+
+		getSelectedAlternative: function() {
+			var minimizedClassName = 'leaflet-routing-alt-minimized',
+					altClassName = 'leaflet-routing-alt',
+					elem,
+					j;
+
+			for (j = 0; j < this._altElements.length; j++) {
+				elem = this._altElements[j];
+				if (L.DomUtil.hasClass(elem, altClassName) && !L.DomUtil.hasClass(elem, minimizedClassName))
+				{
+					return j;
 				}
 			}
 		},
